@@ -168,13 +168,13 @@ export default defineComponent({
 						}
 						case 'x3': {
 							return h('span', {
-								class: defaultStore.state.advancedMfm ? 'mfm-x3' : '',
-							}, genEl(token.children, scale * 3));
+								class: defaultStore.state.advancedMfm ? 'mfm-x2' : '',
+							}, genEl(token.children, scale * 2));
 						}
 						case 'x4': {
 							return h('span', {
-								class: defaultStore.state.advancedMfm ? 'mfm-x4' : '',
-							}, genEl(token.children, scale * 4));
+								class: defaultStore.state.advancedMfm ? 'mfm-x2' : '',
+							}, genEl(token.children, scale * 2));
 						}
 						case 'font': {
 							const family =
@@ -223,7 +223,7 @@ export default defineComponent({
 							}
 							const x = Math.min(parseFloat(token.props.args.x ?? '1'), 5);
 							const y = Math.min(parseFloat(token.props.args.y ?? '1'), 5);
-							style = `transform: scale(${x}, ${y});`; 
+							style = `transform: scale(${x}, ${y});`;
 							scale = scale * Math.max(x, y);
 							break;
 						}

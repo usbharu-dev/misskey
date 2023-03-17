@@ -1,6 +1,7 @@
 {
 	"name": "frontend",
 	"private": true,
+	"version": "1.0.0",
 	"scripts": {
 		"watch": "vite",
 		"build": "vite build",
@@ -74,7 +75,8 @@
 		"vue": "3.2.47",
 		"vue-plyr": "7.0.0",
 		"vue-prism-editor": "2.0.0-alpha.2",
-		"vuedraggable": "next"
+		"vuedraggable": "next",
+		"parse5-htmlparser2-tree-adapter": "^7.0.0"
 	},
 	"devDependencies": {
 		"@storybook/addon-actions": "7.0.7",

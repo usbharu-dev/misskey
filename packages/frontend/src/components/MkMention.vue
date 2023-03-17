@@ -1,5 +1,5 @@
 <template>
-<MkA v-user-preview="canonical" :class="[$style.root, { [$style.isMe]: isMe }]" :to="url" :style="{ background: bgCss }">
+<MkA v-user-preview="canonical" :class="[$style.root, { [$style.isMe]: isMe }]" :to="url" :style="{ background: bgCss }" :behavior="behavior">
 	<img :class="$style.icon" :src="`/avatar/@${username}@${host}`" alt="">
 	<span>
 		<span :class="$style.username">@{{ username }}</span>
@@ -21,9 +21,11 @@ const props = defineProps<{
 	host: string;
 }>();
 
+const behavior:'browser' | 'window' | null = props.host === localHost ? null : 'browser';
+
 const canonical = props.host === localHost ? `@${props.username}` : `@${props.username}@${toUnicode(props.host)}`;
 
-const url = `/${canonical}`;
+const url = props.host === localHost ? `/@${props.username}` : `https://${toUnicode(props.host)}/@${props.username}`;
 
 const isMe = $i && (
 	`@${props.username}@${toUnicode(props.host)}` === `@${$i.username}@${toUnicode(localHost)}`.toLowerCase()

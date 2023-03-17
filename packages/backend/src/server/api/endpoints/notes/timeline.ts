@@ -97,7 +97,7 @@ export default class extends Endpoint<typeof meta, typeof paramDef> {
 					qb.orWhere('note.renoteId IS NULL');
 					qb.orWhere('note.text IS NOT NULL');
 					qb.orWhere('note.fileIds != \'{}\'');
-					qb.orWhere('0 < (SELECT COUNT(*) FROM poll WHERE poll."noteId" = note.id)');
+					qb.orWhere('0 < (SELECT COUNT(poll."noteId") FROM poll WHERE poll."noteId" = note.id)');
 				}));
 			}
 
@@ -107,7 +107,7 @@ export default class extends Endpoint<typeof meta, typeof paramDef> {
 					qb.orWhere('note.renoteId IS NULL');
 					qb.orWhere('note.text IS NOT NULL');
 					qb.orWhere('note.fileIds != \'{}\'');
-					qb.orWhere('0 < (SELECT COUNT(*) FROM poll WHERE poll."noteId" = note.id)');
+					qb.orWhere('0 < (SELECT COUNT(poll."noteId") FROM poll WHERE poll."noteId" = note.id)');
 				}));
 			}
 
@@ -117,7 +117,7 @@ export default class extends Endpoint<typeof meta, typeof paramDef> {
 					qb.orWhere('note.renoteId IS NULL');
 					qb.orWhere('note.text IS NOT NULL');
 					qb.orWhere('note.fileIds != \'{}\'');
-					qb.orWhere('0 < (SELECT COUNT(*) FROM poll WHERE poll."noteId" = note.id)');
+					qb.orWhere('0 < (SELECT COUNT(poll."noteId") FROM poll WHERE poll."noteId" = note.id)');
 				}));
 			}
 

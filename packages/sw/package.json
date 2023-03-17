@@ -1,6 +1,7 @@
 {
 	"name": "sw",
 	"private": true,
+	"version": "1.0.0",
 	"scripts": {
 		"watch": "node build.js watch",
 		"build": "node build.js",

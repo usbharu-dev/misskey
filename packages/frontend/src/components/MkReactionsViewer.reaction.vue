@@ -32,7 +32,7 @@ const props = defineProps<{
 
 const buttonEl = shallowRef<HTMLElement>();
 
-const canToggle = computed(() => !props.reaction.match(/@\w/) && $i);
+const canToggle = computed(() =>/* !props.reaction.match(/@\w/) && */$i);
 
 const toggleReaction = () => {
 	if (!canToggle.value) return;

@@ -9,7 +9,7 @@
 		<img v-for="role in note.user.badgeRoles" :key="role.id" v-tooltip="role.name" :class="$style.badgeRole" :src="role.iconUrl"/>
 	</div>
 	<div :class="$style.info">
-		<MkA :to="notePage(note)">
+		<MkA :to="notePage(note)" :behavior="note.uri ? 'browser' : null	">
 			<MkTime :time="note.createdAt"/>
 		</MkA>
 		<span v-if="note.visibility !== 'public'" style="margin-left: 0.5em;" :title="i18n.ts._visibility[note.visibility]">

@@ -61,8 +61,10 @@ export default class extends Endpoint<typeof meta, typeof paramDef> {
 	constructor(
 		@Inject(DI.notesRepository)
 		private notesRepository: NotesRepository,
+
 		@Inject(DI.followingsRepository)
 		private followingsRepository: FollowingsRepository,
+
 		private noteEntityService: NoteEntityService,
 		private queryService: QueryService,
 		private metaService: MetaService,
@@ -85,8 +87,8 @@ export default class extends Endpoint<typeof meta, typeof paramDef> {
 				ps.sinceId, ps.untilId, ps.sinceDate, ps.untilDate)
 				.andWhere('note.id > :minId', { minId: this.idService.genId(new Date(Date.now() - (1000 * 60 * 60 * 24 * 10))) }) // 10日前まで
 				.andWhere(new Brackets(qb => {
-					qb.where('(note.visibility = \'public\') AND (note.userHost IS NULL)')
-						.orWhere(`((note.userId IN (${followingQuery.getQuery()})) OR (note.userId = :meId))`, { meId: me.id });
+					qb.where(`((note.userId IN (${ followingQuery.getQuery() })) OR (note.userId = :meId))`, { meId: me.id })
+						.orWhere('(note.visibility = \'public\') AND (note.userHost IS NULL)');
 				}))
 				.innerJoinAndSelect('note.user', 'user')
 				.leftJoinAndSelect('note.reply', 'reply')
@@ -109,7 +111,7 @@ export default class extends Endpoint<typeof meta, typeof paramDef> {
 					qb.orWhere('note.renoteId IS NULL');
 					qb.orWhere('note.text IS NOT NULL');
 					qb.orWhere('note.fileIds != \'{}\'');
-					qb.orWhere('0 < (SELECT COUNT(poll."noteId") FROM poll WHERE poll."noteId" = note.id)');
+					qb.orWhere('0 < (SELECT COUNT(*) FROM poll WHERE poll."noteId" = note.id)');
 				}));
 			}
 
@@ -119,7 +121,7 @@ export default class extends Endpoint<typeof meta, typeof paramDef> {
 					qb.orWhere('note.renoteId IS NULL');
 					qb.orWhere('note.text IS NOT NULL');
 					qb.orWhere('note.fileIds != \'{}\'');
-					qb.orWhere('0 < (SELECT COUNT(poll."noteId") FROM poll WHERE poll."noteId" = note.id)');
+					qb.orWhere('0 < (SELECT COUNT(*) FROM poll WHERE poll."noteId" = note.id)');
 				}));
 			}
 
@@ -129,7 +131,7 @@ export default class extends Endpoint<typeof meta, typeof paramDef> {
 					qb.orWhere('note.renoteId IS NULL');
 					qb.orWhere('note.text IS NOT NULL');
 					qb.orWhere('note.fileIds != \'{}\'');
-					qb.orWhere('0 < (SELECT COUNT(poll."noteId) FROM poll WHERE poll."noteId" = note.id)');
+					qb.orWhere('0 < (SELECT COUNT(*) FROM poll WHERE poll."noteId" = note.id)');
 				}));
 			}
 

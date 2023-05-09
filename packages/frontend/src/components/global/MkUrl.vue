@@ -36,13 +36,13 @@ const url = new URL(props.url);
 if (!['http:', 'https:'].includes(url.protocol)) throw new Error('invalid url');
 const el = ref();
 
-useTooltip(el, (showing) => {
-	os.popup(defineAsyncComponent(() => import('@/components/MkUrlPreviewPopup.vue')), {
-		showing,
-		url: props.url,
-		source: el.value,
-	}, {}, 'closed');
-});
+// useTooltip(el, (showing) => {
+// 	os.popup(defineAsyncComponent(() => import('@/components/MkUrlPreviewPopup.vue')), {
+// 		showing,
+// 		url: props.url,
+// 		source: el.value,
+// 	}, {}, 'closed');
+// });
 
 const schema = url.protocol;
 const hostname = decodePunycode(url.hostname);
